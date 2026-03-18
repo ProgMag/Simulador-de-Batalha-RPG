@@ -45,15 +45,26 @@ public class Main {
 
                 vilao.recebeDano(heroi.getPontosDeAtaque() * 2);
 
-                System.out.println(nomeHeroi + " ataca " + nomeVilao + " e recebe " + (heroi.getPontosDeAtaque() * 2) + " de dano critico\n" +
-                        "Vida do vilão: " + vilao.getPontosDeVida());
-            } else {
-                System.out.format("""
-                        Dado lançado por: %s
-                        Valor obtido: %d
-                        %s errou o ataque
-                        %s se esquiva
-                        """, nomeHeroi, dadoDoHeroi, nomeHeroi, nomeVilao);
+                        System.out.println(nomeHeroi + " ataca " + nomeVilao + " e recebe " + (heroi.getPontosDeAtaque() * 2) + " de dano critico\n" +
+                                "Vida do vilão: " + vilao.getPontosDeVida());
+                    } else {
+                        System.out.format("""
+                                Dado lançado por: %s
+                                Valor obtido: %d
+                                %s errou o ataque
+                                %s se esquiva
+                                """, nomeHeroi, dadoDoHeroi, nomeHeroi, nomeVilao);
+                    }
+                }
+                case 2 -> {
+                    if (quantidadeDePocao > 0) {
+                        heroi.curar(10);
+                        System.out.println(nomeHeroi + " bebe a poção magica e recebe 10 de vida!");
+                        quantidadeDePocao--;
+                    } else {
+                        System.out.println("Seu estoque de poções de cura acabou!");
+                    }
+                }
             }
             if (vilao.getPontosDeVida() == 0) {
                 System.out.println("""
