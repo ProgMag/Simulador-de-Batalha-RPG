@@ -2,6 +2,10 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
+
+    private static final int POCAO_CURA = 3;
+    private static final int DANO_CRITICO = 8;
+
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
@@ -17,11 +21,15 @@ public class Main {
         Personagem heroi = new Personagem(nomeHeroi, 100, 30);
         Personagem vilao = new Personagem(nomeVilao, 110, 18);
 
+        int quantidadeDePocao = 3;
+
         while (heroi.getPontosDeVida() > 0 && vilao.getPontosDeVida() > 0) {
 
-            System.out.println(" --- Turno de " + nomeHeroi +
+            int dadoDoVilao = dado.nextInt(10) + 1;
+
+            System.out.println(" --- Turno de " + nomeHeroi + " --- " +
                     " \n1 - Atacar " +
-                    " \n2 - Poções de cura (quantidade: 3)\n" +
+                    " \n2 - Poções de cura: " + quantidadeDePocao + "\n" +
                     " Escolha sua ação: ");
             int opcao = sc.nextInt();
 
@@ -29,21 +37,21 @@ public class Main {
                 case 1 -> {
                     int dadoDoHeroi = dado.nextInt(10) + 1;
 
-            if (dadoDoHeroi == 5) {
-                System.out.println("Dado lançado pelo " + nomeHeroi +
-                        "\nNumero obtido de: " + dadoDoHeroi);
+                    if (dadoDoHeroi >= 1 && dadoDoHeroi <= 5) {
+                        System.out.println("Dado lançado pelo " + nomeHeroi +
+                                "\nNumero obtido de: " + dadoDoHeroi);
 
-                vilao.recebeDano(heroi.getPontosDeAtaque());
+                        vilao.recebeDano(heroi.getPontosDeAtaque());
 
-                System.out.println(nomeHeroi + " ataca " + nomeVilao + " e recebe " + heroi.getPontosDeAtaque() + " de dano básico\n" +
-                        "Vida do vilão: " + vilao.getPontosDeVida());
+                        System.out.println(nomeHeroi + " ataca " + nomeVilao + " e recebe " + heroi.getPontosDeAtaque()
+                                + " de dano básico\n" +
+                                "Vida do vilão: " + vilao.getPontosDeVida());
 
-                // dano critico
-            } else if (dadoDoHeroi == 8) {
-                System.out.println("Dado lançado pelo " + nomeHeroi +
-                        "\nNumero obtido de: " + dadoDoHeroi);
+                    } else if (dadoDoHeroi == 8) {
+                        System.out.println("Dado lançado pelo " + nomeHeroi +
+                                "\nNumero obtido de: " + dadoDoHeroi);
 
-                vilao.recebeDano(heroi.getPontosDeAtaque() * 2);
+                        vilao.recebeDano(heroi.getPontosDeAtaque() * 2);
 
                         System.out.println(nomeHeroi + " ataca " + nomeVilao + " e recebe " + (heroi.getPontosDeAtaque() * 2) + " de dano critico\n" +
                                 "Vida do vilão: " + vilao.getPontosDeVida());
@@ -75,10 +83,9 @@ public class Main {
                 break;
             }
 
-            // vez do vilão
-            int dadoDoVilao = dado.nextInt(10) + 1;
+            System.out.println("\n");
 
-            if (dadoDoVilao == 5) {
+            if (dadoDoVilao >= 1 && dadoDoVilao <= 5) {
                 System.out.println("Dado lançado pelo " + nomeVilao +
                         "\nNumero obtido de: " + dadoDoVilao);
 
@@ -86,8 +93,6 @@ public class Main {
 
                 System.out.println(nomeVilao + " ataca " + nomeHeroi + " e recebe " + vilao.getPontosDeAtaque() + " de dano básico\n" +
                         "Vida do herói: " + heroi.getPontosDeVida());
-
-                //dano critico
 
             } else if (dadoDoVilao == 8) {
                 System.out.println("Dado lançado pelo " + nomeVilao +

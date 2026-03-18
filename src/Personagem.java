@@ -1,16 +1,12 @@
 public class Personagem {
-    private String nome;
+    private final String nome;
     private double pontosDeVida;
-    private double pontosDeAtaque;
+    private final double pontosDeAtaque;
 
     public Personagem(String nome, double pontosDeVida, double pontosDeAtaque) {
         this.nome = nome;
         this.pontosDeVida = pontosDeVida;
         this.pontosDeAtaque = pontosDeAtaque;
-    }
-
-    public String getNome() {
-        return nome;
     }
 
     public double getPontosDeVida() {
@@ -25,8 +21,10 @@ public class Personagem {
         pontosDeVida -= dano;
         if (pontosDeVida <= 0) {
             pontosDeVida = 0;
-//            System.out.println("Personagem morto!");
         }
-//        System.out.println("Vida: " + pontosDeVida);
+    }
+
+    public void curar(double cura) {
+        pontosDeVida += cura;
     }
 }
