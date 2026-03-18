@@ -120,4 +120,24 @@ public class Main {
             }
         }
     }
+
+    private static void executarAtaque(Personagem atacante, Personagem defensor, int valorDado) {
+        System.out.println("Dado lançado por " + atacante.getNome() + " Numero obtido:" + valorDado);
+
+        if (valorDado >= 1 && valorDado <= 5) {
+            defensor.recebeDano(atacante.getPontosDeAtaque());
+            System.out.println(atacante.getNome() + " ataca " + defensor.getNome() +
+                    " e causa " + atacante.getPontosDeAtaque() + " de dano básico.");
+
+        } else if (valorDado == DANO_CRITICO) {
+            double danoCritico = atacante.getPontosDeAtaque() * 2;
+            defensor.recebeDano(danoCritico);
+            System.out.println("CRÍTICO! " + atacante.getNome() + " ataca " + defensor.getNome() +
+                    " e causa " + danoCritico + " de dano!");
+
+        } else {
+            System.out.println(atacante.getNome() + " errou o ataque! " + defensor.getNome() + " se esquivou.");
+        }
+        System.out.println("Vida atual de " + defensor.getNome() + ": " + defensor.getPontosDeVida());
+    }
 }
