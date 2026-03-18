@@ -19,8 +19,15 @@ public class Main {
 
         while (heroi.getPontosDeVida() > 0 && vilao.getPontosDeVida() > 0) {
 
-            // vez do herói
-            int dadoDoHeroi = dado.nextInt(10) + 1;
+            System.out.println(" --- Turno de " + nomeHeroi +
+                    " \n1 - Atacar " +
+                    " \n2 - Poções de cura (quantidade: 3)\n" +
+                    " Escolha sua ação: ");
+            int opcao = sc.nextInt();
+
+            switch (opcao) {
+                case 1 -> {
+                    int dadoDoHeroi = dado.nextInt(10) + 1;
 
             if (dadoDoHeroi == 5) {
                 System.out.println("Dado lançado pelo " + nomeHeroi +
