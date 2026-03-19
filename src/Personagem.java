@@ -9,6 +9,10 @@ public class Personagem {
         this.pontosDeAtaque = pontosDeAtaque;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     public double getPontosDeVida() {
         return pontosDeVida;
     }

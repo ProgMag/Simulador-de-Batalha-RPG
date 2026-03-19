@@ -25,9 +25,7 @@ public class Main {
 
         while (heroi.getPontosDeVida() > 0 && vilao.getPontosDeVida() > 0) {
 
-            int dadoDoVilao = dado.nextInt(10) + 1;
-
-            System.out.println(" --- Turno de " + nomeHeroi + " --- " +
+            System.out.println("\n --- Turno de " + nomeHeroi + " --- " +
                     " \n1 - Atacar " +
                     " \n2 - Poções de cura: " + quantidadeDePocao + "\n" +
                     " Escolha sua ação: ");
@@ -36,100 +34,48 @@ public class Main {
             switch (opcao) {
                 case 1 -> {
                     int dadoDoHeroi = dado.nextInt(10) + 1;
-
-                    if (dadoDoHeroi >= 1 && dadoDoHeroi <= 5) {
-                        System.out.println("Dado lançado pelo " + nomeHeroi +
-                                "\nNumero obtido de: " + dadoDoHeroi);
-
-                        vilao.recebeDano(heroi.getPontosDeAtaque());
-
-                        System.out.println(nomeHeroi + " ataca " + nomeVilao + " e recebe " + heroi.getPontosDeAtaque()
-                                + " de dano básico\n" +
-                                "Vida do vilão: " + vilao.getPontosDeVida());
-
-                    } else if (dadoDoHeroi == 8) {
-                        System.out.println("Dado lançado pelo " + nomeHeroi +
-                                "\nNumero obtido de: " + dadoDoHeroi);
-
-                        vilao.recebeDano(heroi.getPontosDeAtaque() * 2);
-
-                        System.out.println(nomeHeroi + " ataca " + nomeVilao + " e recebe " + (heroi.getPontosDeAtaque() * 2) + " de dano critico\n" +
-                                "Vida do vilão: " + vilao.getPontosDeVida());
-                    } else {
-                        System.out.format("""
-                                Dado lançado por: %s
-                                Valor obtido: %d
-                                %s errou o ataque
-                                %s se esquiva
-                                """, nomeHeroi, dadoDoHeroi, nomeHeroi, nomeVilao);
-                    }
+                    executarAtaque(heroi, vilao, dadoDoHeroi);
                 }
                 case 2 -> {
                     if (quantidadeDePocao > 0) {
-                        heroi.curar(10);
-                        System.out.println(nomeHeroi + " bebe a poção magica e recebe 10 de vida!");
+                        heroi.curar(POCAO_CURA);
+                        System.out.println(heroi.getNome() + " bebe a poção magica e recebe 10 de vida!");
                         quantidadeDePocao--;
                     } else {
                         System.out.println("Seu estoque de poções de cura acabou!");
                     }
                 }
-            }
-            if (vilao.getPontosDeVida() == 0) {
-                System.out.println("""
-                        Fim de jogo
-                        Vilão perdeu
-                        Herói venceu
-                        """);
-                break;
+                default -> System.out.println("Ação invalida!");
             }
 
-            System.out.println("\n");
+            if (vilao.getPontosDeVida() == 0) break;
 
-            if (dadoDoVilao >= 1 && dadoDoVilao <= 5) {
-                System.out.println("Dado lançado pelo " + nomeVilao +
-                        "\nNumero obtido de: " + dadoDoVilao);
+            System.out.println("\n --- Turno do " + vilao.getNome() + " ---");
+            int dadoDoVilao = dado.nextInt(10) + 1;
+            executarAtaque(vilao, heroi, dadoDoVilao);
 
-                heroi.recebeDano(vilao.getPontosDeAtaque());
-
-                System.out.println(nomeVilao + " ataca " + nomeHeroi + " e recebe " + vilao.getPontosDeAtaque() + " de dano básico\n" +
-                        "Vida do herói: " + heroi.getPontosDeVida());
-
-            } else if (dadoDoVilao == 8) {
-                System.out.println("Dado lançado pelo " + nomeVilao +
-                        "\nNumero obtido de: " + dadoDoVilao);
-
-                heroi.recebeDano(vilao.getPontosDeAtaque() * 2);
-
-                System.out.println(nomeVilao + " ataca " + nomeHeroi + " e recebe " + (vilao.getPontosDeAtaque() * 2) + " de dano critico\n" +
-                        "Vida do herói: " + heroi.getPontosDeVida());
-            } else {
-                System.out.format("""
-                        Dado lançado por: %s
-                        Valor obtido: %d
-                        %s errou o ataque
-                        %s se esquiva
-                        """, nomeVilao, dadoDoVilao, nomeVilao, nomeHeroi);
-            }
             if (heroi.getPontosDeVida() == 0) {
-                System.out.println("""
-                        Fim de jogo
-                        Herói perdeu
-                        Vilão venceu
-                        """);
                 break;
             }
         }
+
+        System.out.println("\n --- Fim de Jogo ---");
+        if (heroi.getPontosDeVida() > 0) {
+            System.out.println("O Herói " + heroi.getNome() + " venceu a batalha!");
+        } else {
+            System.out.println("O Vilão " + vilao.getNome() + " venceu a batalha!");
+        }
     }
 
-    private static void executarAtaque(Personagem atacante, Personagem defensor, int valorDado) {
-        System.out.println("Dado lançado por " + atacante.getNome() + " Numero obtido:" + valorDado);
+    private static void executarAtaque(Personagem atacante, Personagem defensor, int valorDoDado) {
+        System.out.println("Dado lançado por " + atacante.getNome() + " Numero obtido: " + valorDoDado);
 
-        if (valorDado >= 1 && valorDado <= 5) {
+        if (valorDoDado >= 1 && valorDoDado <= 5) {
             defensor.recebeDano(atacante.getPontosDeAtaque());
             System.out.println(atacante.getNome() + " ataca " + defensor.getNome() +
                     " e causa " + atacante.getPontosDeAtaque() + " de dano básico.");
 
-        } else if (valorDado == DANO_CRITICO) {
+        } else if (valorDoDado == DANO_CRITICO) {
             double danoCritico = atacante.getPontosDeAtaque() * 2;
             defensor.recebeDano(danoCritico);
             System.out.println("CRÍTICO! " + atacante.getNome() + " ataca " + defensor.getNome() +
