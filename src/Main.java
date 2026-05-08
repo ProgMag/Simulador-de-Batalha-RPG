@@ -2,7 +2,6 @@ import java.util.Random;
 import java.util.Scanner;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
 
@@ -22,7 +21,8 @@ public class Main {
 
         monstros.add(new Personagem("Goblin", 35, 24));
         monstros.add(new Personagem("Esqueleto", 36, 45));
-        monstros.add(new Personagem("Dragão Vermelho", 65, 78));
+        monstros.add(new Personagem("Mago negro", 89, 54));
+        monstros.add(new Personagem("Dragão Vermelho", 100, 78));
 
         Mago heroi = new Mago(nomeHeroi, 135, 63, 100);
 
@@ -43,7 +43,7 @@ public class Main {
 
                 switch (opcao) {
                     case 1 -> {
-                        int dadoDoHeroi = dado.nextInt(10) + 1;
+                        int dadoDoHeroi = dado.nextInt(20) + 1;
                         executarAtaque(heroi, monstroDaVez, dadoDoHeroi);
                     }
                     case 2 -> {
@@ -79,6 +79,7 @@ public class Main {
                 break;
             }
         }
+
         System.out.println("\n --- Fim de Jogo ---");
         if (heroi.getPontosDeVida() > 0) {
             System.out.println("Parabéns, você venceu todos os monstros da masmorra!");
@@ -91,13 +92,13 @@ public class Main {
         System.out.println("Dado lançado por " + atacante.getNome() + " Numero obtido: " + valorDoDado);
 
         if (valorDoDado >= 1 && valorDoDado <= 5) {
-            defensor.recebeDano(atacante.getPontosDeAtaque());
+            defensor.receberDano(atacante.getPontosDeAtaque());
             System.out.println(atacante.getNome() + " ataca " + defensor.getNome() +
                     " e causa " + atacante.getPontosDeAtaque() + " de dano básico.");
 
         } else if (valorDoDado == DANO_CRITICO) {
             double danoCritico = atacante.getPontosDeAtaque() * 2;
-            defensor.recebeDano(danoCritico);
+            defensor.receberDano(danoCritico);
             System.out.println("CRÍTICO! " + atacante.getNome() + " ataca " + defensor.getNome() +
                     " e causa " + danoCritico + " de dano!");
 

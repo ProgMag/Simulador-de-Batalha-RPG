@@ -12,13 +12,16 @@ public class Mago extends Personagem {
     }
 
     public void lancarFeitico(Personagem alvo) {
+
         int custoDeMana = 25;
+
         if (this.mana >= custoDeMana) {
             this.mana -= custoDeMana;
-            alvo.recebeDano(getPontosDeAtaque() + 10);
+            alvo.receberDano(getPontosDeAtaque() + 10);
             System.out.println(getNome() + " lança um feitiço de bola de fogo no " + alvo.getNome() + " causando " + (getPontosDeAtaque()
                     + 10) + " de dano!");
             System.out.println(this.mana + " de mana");
+
         } else {
             System.out.println("Sem mana suficiente para atacar!");
         }

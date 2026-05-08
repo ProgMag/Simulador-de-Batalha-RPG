@@ -1,4 +1,5 @@
 public class Personagem {
+
     private final String nome;
     private double pontosDeVida;
     private final double pontosDeAtaque;
@@ -21,7 +22,7 @@ public class Personagem {
         return pontosDeAtaque;
     }
 
-    public void recebeDano(double dano) {
+    public void receberDano(double dano) {
         pontosDeVida -= dano;
         if (pontosDeVida <= 0) {
             pontosDeVida = 0;
